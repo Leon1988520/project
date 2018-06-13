@@ -1,0 +1,51 @@
+body{
+	padding: 0 0 0 0;
+	background: url(../imgs/bg.jpg);
+	background-position: top left;
+	background-size: cover;
+	background-position: no-repeat;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header > ul > li{
+	display: inline;
+}
+
+header{
+	position: relative;
+	text-align: center;
+}
+
+article{
+    padding: 20px 20px 20px 20px;
+	margin-left: 25%;
+    border: 1px solid #dddddd;
+	position: relative;
+	text-align: center;
+	vertical-align: center;
+	background-color: #FFF;
+	border-radius: 25px;
+	width: 50%;
+}
+
+article > ul > li > img{
+	float: left;
+	width: 30%;
+}
+
+article > ul > li > div.article-info{
+	display: inline-block;
+	text-align: left;
+}
+
+
+article > ul > li > div.mark{
+	float: right;
+	display: inline-block;
+	vertical-align: center;
+    margin:35px 20px 35px 20px;
+}
+
+footer{
+	text-align: center;
+}

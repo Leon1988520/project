@@ -1,0 +1,171 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 11 19:47:34 2018
+
+@author: E2500002
+"""
+
+# -*- coding:UTF-8 -*-
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+import ssl
+import csv
+import importlib
+import sys
+import os
+import time
+ssl._create_default_https_context = ssl._create_unverified_context
+#from urllib.parse import quote
+importlib.reload(sys)
+#sys.setdefaultencoding('utf8')
+
+cookie = 'PHPSESSID=1lvicft411ropt7mubm59tobr7; UM_distinctid=163f311a455b4-0e5323ac61b0c8-4446062d-100200-163f311a4564d5; CNZZDATA1254842228=99549380-1528788847-%7C1528788847; zg_did=%7B%22did%22%3A%20%22163f311a8593ba-0732f46aad96b6-4446062d-100200-163f311a85b2a0%22%7D; hasShow=1; Hm_lvt_3456bee468c83cc63fb5147f119f1075=1528791411; _uab_collina=152879141767658175415586; _umdata=55F3A8BFC9C50DDA5042268DDDCE9BAC9F95C9C2BCB2744EB8A5547B7AE7181592E890831017B78ACD43AD3E795C914C398BC007D906F7AAE5E8DF57F0739D54; zg_de1d1a35bfa24ce29bbf2c7eb17e6c4f=%7B%22sid%22%3A%201528791410784%2C%22updated%22%3A%201528791823815%2C%22info%22%3A%201528791410789%2C%22superProperty%22%3A%20%22%7B%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22%22%2C%22cuid%22%3A%20%226b165c602833997802034b079999e3e1%22%7D; Hm_lpvt_3456bee468c83cc63fb5147f119f1075=1528791824'
+
+user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) " \
+             "Chrome/64.0.3282.186 Safari/537.36"
+
+authority = 'https://www.qichacha.com'
+Referer = 'https://www.qichacha.com'
+scheme = 'https'
+headers = {
+    'user-agent': user_agent,
+    'authority': authority,
+    'Referer': Referer,
+    'scheme': scheme
+    }
+
+savepath = "e:\qichacha.xlsx"
+
+
+class Qi_cha_cha(object):
+    def __init__(self, cname):
+        self.coolie = []
+        self.save_path = savepath
+        self.companyname = cname
+        self.new_cookies = cookie
+        print(self.new_cookies)
+        self.header = {
+            'User-Agent': user_agent,
+        }
+        self.query_time = time.strftime("%Y-%m-%d %H:%M:%S")
+        b = requests.get('https://www.qichacha.com', headers=self.header)
+        print(b.cookies)
+        for i in b.cookies:
+            print(i.value)
+            self.coolie.append(i.value)
+
+    def get_html(self, url, referer='https://m.qichacha.com/'):
+        if self.save_path != 'none':
+            cookie = self.new_cookies
+        header = {
+            'referer': referer,
+            'User-Agent': user_agent,
+            'Cookie': cookie
+        }
+        html = requests.get(url, headers=header)
+        return html.text
+
+    def parse_html(self, html_text):
+        html = BeautifulSoup(html_text, 'lxml')
+
+        if html.text.find('亲，小查告诉你个秘密') > 0:
+            print('请先在浏览器登录获取cookie')
+            return
+
+        content = html.find('span', id='countOld').find('span', attrs={'class': 'text-danger'}).text.strip()
+        print(content)
+        if content != '0':
+            print('find the company')
+            csv_file = 'csvFile2.csv'
+            isExist = os.path.exists(csv_file)
+            with open(self.save_path, mode='a') as csvFile2:
+                writer = csv.writer(csvFile2)
+                if not isExist:
+                    out_put_titile = ['公司名称', '法定代表人', '注册资金', '成立时间',
+                               '邮箱', '电话', '地址', '商标', '查询时间']
+                    writer.writerow(out_put_titile)
+                trs = html.find('tbody').find_all('tr')
+                print('len of trs: %d' % len(trs))
+                for tr in trs:
+                    out_put = self.parse_info_each_tr(tr)
+                    writer.writerow(out_put)
+                print('out put is done')
+        else:
+            print('no company found')
+
+    def parse_info_each_tr(self, tr):
+        detail_info_td = tr.find_all('td')[1]
+        company_name = self.get_company_name(detail_info_td)
+        legal_representative = self.get_legal_representative(detail_info_td)
+        registered_capital = self.get_registered_capital(detail_info_td)
+        founding_time = self.get_founding_time(detail_info_td)
+        company_email = self.get_company_email(detail_info_td)
+        company_tel = self.get_company_tel(detail_info_td)
+        company_addr = self.get_company_addr(detail_info_td)
+        trademark = self.get_trademark(detail_info_td)
+        # write csv
+        out_put = [company_name, legal_representative, registered_capital, founding_time,
+                   company_email, company_tel, company_addr, trademark, self.query_time]
+        return out_put
+
+    def get_company_name(self, detail_info_td):
+        company_name = detail_info_td.find('a', attrs={'class': 'ma_h1'}).text.strip()
+        return company_name
+
+    def get_legal_representative(self, detail_info_td):
+        info_p0 = detail_info_td.find_all('p')[0]
+        legal_representative_a = info_p0.find('a')
+        if legal_representative_a:
+            legal_representative = legal_representative_a.text.strip()
+        else:
+            legal_representative = info_p0.text.split('注册资本')[0].strip()[6:].strip()
+        return legal_representative
+
+    def get_registered_capital(self, detail_info_td):
+        info_p0 = detail_info_td.find_all('p')[0]
+        registered_capital = info_p0.find_all('span')[0].text.strip()[5:]
+        return registered_capital
+
+    def get_founding_time(self, detail_info_td):
+        info_p0 = detail_info_td.find_all('p')[0]
+        founding_time = info_p0.find_all('span')[1].text.strip()[5:]
+        return founding_time
+
+    def get_company_email(self, detail_info_td):
+        info_p1 = detail_info_td.find_all('p')[1]
+        company_email = info_p1.get_text().split('电话')[0].strip()[3:]
+        return company_email
+
+    def get_company_tel(self, detail_info_td):
+        info_p1 = detail_info_td.find_all('p')[1]
+        company_tel = info_p1.get_text().split('电话')[1].strip()[1:].replace(' 更多号码', '')
+        return company_tel
+
+    def get_company_addr(self, detail_info_td):
+        info_p2 = detail_info_td.find_all('p')[2]
+        company_addr = info_p2.text.strip()[3:].replace('"', '')
+        return company_addr
+
+    def get_trademark(self, detail_info_td):
+        trademark = 'None'
+        if len(detail_info_td.find_all('p')) == 4:
+            info_p3 = detail_info_td.find_all('p')[3]
+            trademark = info_p3.find('i').text.strip()
+        return trademark
+
+    def run(self):
+        url = 'https://www.qichacha.com/search?key=%s' %self.companyname
+        print("查询： %s" %self.companyname)
+        print(url)
+        html_text = self.get_html(url)
+        self.parse_html(html_text)
+
+if __name__ == '__main__':
+    companys = pd.read_excel(r"C:\Users\E2500002\Desktop\companys.xls"
+                             , skiprows = 1)
+    
+    cnames = companys["单位名称"]
+    for cname in cnames:
+        Qi_cha_cha(cname).run()
