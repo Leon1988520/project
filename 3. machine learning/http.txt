@@ -1,0 +1,4 @@
+xgboost https://blog.csdn.net/wgb521cgl/article/details/79723265
+随机梯度下降法sgd https://www.sohu.com/a/131923387_473283
+三种梯度下降方式 https://blog.csdn.net/uestc_c2_403/article/details/74910107
+机器学习算法速查：https://www.leiphone.com/news/201706/fsdpvGeCp7WURxci.html
