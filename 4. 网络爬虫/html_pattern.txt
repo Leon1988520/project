@@ -1,0 +1,5 @@
+http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/index.html			36.html
+省 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/36.html			36/3610.html
+市 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/36/3610.html			10/361030.html
+县 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/36/10/361030.html		30/361030106.html
+乡 http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2017/36/10/30/361030106.html
