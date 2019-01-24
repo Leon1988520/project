@@ -21,6 +21,8 @@
 [如何入门Python爬虫](https://www.zhihu.com/question/20899988/answer/23370601)
 [Python爬虫从入门到放弃（二十二）之 爬虫与反爬虫大战](https://www.cnblogs.com/zhaof/p/7326260.html)
 
+[月薪45K的Python爬虫工程师告诉你爬虫应该怎么学，太详细了！](https://baijiahao.baidu.com/s?id=1578594478424685451&wfr=spider&for=pc)
+
 
 [python爬虫工具列表](https://zhuanlan.zhihu.com/p/27985429)
 [python爬虫工具列表](https://zhuanlan.zhihu.com/p/22660569)
