@@ -47,3 +47,4 @@ https://www.cnblogs.com/fengff/p/10233066.html
 6. [why always xgboost](https://www.jiqizhixin.com/articles/2017-11-08-3)
 7. [bias variance](https://www.cnblogs.com/ooon/p/5711516.html) [2](https://www.jianshu.com/p/c26cfe99c091)
 8. [bag or boost](https://www.cnblogs.com/earendil/p/8872001.html)
+9. [梯度下降](https://www.cnblogs.com/gongxijun/p/5890548.html)
