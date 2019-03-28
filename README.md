@@ -40,3 +40,4 @@ https://www.cnblogs.com/fengff/p/10233066.html
 
 2. [凸函数及其性质](https://www.cnblogs.com/always-fight/p/9377554.html)
 3. [解析解&数值解](https://blog.csdn.net/tMb8Z9Vdm66wH68VX1/article/details/80115482)
+4. [回归方程检验](https://www.cnblogs.com/datamining-bio/p/9502033.html)
