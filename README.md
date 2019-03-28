@@ -44,3 +44,5 @@ https://www.cnblogs.com/fengff/p/10233066.html
 
 
 5. [正则化项](https://blog.csdn.net/jinping_shi/article/details/52433975)
+6. [why always xgboost](https://www.jiqizhixin.com/articles/2017-11-08-3)
+7. [bias variance](https://www.cnblogs.com/ooon/p/5711516.html)
