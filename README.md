@@ -34,5 +34,6 @@ https://blog.csdn.net/Jesszen/article/details/80989714
 https://wenku.baidu.com/view/1400925eeff9aef8941e068a.html
 
 1. [梯度下降法代码实现](https://www.cnblogs.com/focusonepoint/p/6394339.html)
+https://www.cnblogs.com/fengff/p/10233066.html
 
 3. [https://xeebudong.github.io/]
