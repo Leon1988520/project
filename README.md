@@ -37,3 +37,6 @@ https://wenku.baidu.com/view/1400925eeff9aef8941e068a.html
 https://www.cnblogs.com/fengff/p/10233066.html
 
 3. [https://xeebudong.github.io/]
+
+2. [凸函数及其性质](https://www.cnblogs.com/always-fight/p/9377554.html)
+3. [解析解&数值解]
